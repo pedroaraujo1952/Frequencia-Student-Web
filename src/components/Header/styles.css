@@ -11,3 +11,24 @@
   max-width: 60px;
   margin-right: 25px;
 }
+
+
+#info{
+  margin-top: 10px;
+  max-width: 40px;
+  margin-right: 0px;
+  margin-left: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#back{
+  margin-top: 10px;
+  max-width: 40px;
+  margin-right: 25px;
+  margin-left: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
