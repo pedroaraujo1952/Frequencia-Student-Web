@@ -1,0 +1,12 @@
+.header header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 20px;
+}
+
+.header img {
+  max-width: 60px;
+  margin-right: 25px;
+}

@@ -1,0 +1,91 @@
+.card {
+  max-width: 400px;
+  /* min-width: 300px; */
+  height: auto;
+
+  padding: 10px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+
+  color: #000;
+  background: #ffffff;
+  border-radius: 10px;
+
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.card header {
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-bottom: 1px solid #000;
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.25);
+}
+
+.card .subtitle {
+  text-align: center;
+  font-size: 12px;
+}
+
+.card p {
+  padding: 5px;
+  padding-bottom: 0;
+}
+
+.card .content {
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card .content div {
+  width: 100px;
+}
+
+.card .content img {
+  height: 44px;
+
+  margin: 0 auto;
+}
+
+.card .content .center {
+  width: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card .buttonGroup {
+  width: 90%;
+  margin: 0 auto;
+
+  justify-content: space-between;
+}
+
+.card .buttonGroup button {
+  width: 100px;
+  margin-top: 18px;
+
+  font-weight: bold;
+
+  border-radius: 18px;
+}
+
+.card .buttonGroup button:disabled {
+  color: #000;
+  background-color: #b5b5b5;
+}
+
+.card a {
+  text-decoration: none;
+  color: #000;
+}

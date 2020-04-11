@@ -1,0 +1,36 @@
+.home .events {
+  width: 80%;
+
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 60px;
+
+  overflow-y: auto;
+}
+
+.home .noEvent {
+  padding: 0;
+  overflow: hidden;
+}
+
+.home .noEvent div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home .noEvent p {
+  padding: 20px;
+  padding-bottom: 0;
+
+  text-align: center;
+}
+
+.home .noEvent img {
+  max-height: 300px;
+  max-width: 300px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

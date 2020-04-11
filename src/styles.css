@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #043f5f;
+  font-style: normal;
+  font-weight: normal;
+
+  background: url("assets/background.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+button {
+  height: 35px;
+  margin-top: 15%;
+
+  color: #fff;
+  background: #2e8fb0;
+  border-radius: 10px;
+  border: none;
+}
+
+.error {
+  margin: 0;
+  font-size: 18px;
+  color: #e02121;
+  text-align: start;
+}

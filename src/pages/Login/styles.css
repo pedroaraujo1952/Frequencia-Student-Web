@@ -1,0 +1,63 @@
+form {
+  width: 300px;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login form .logo img {
+  max-width: 95%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 10%;
+}
+
+form .contents {
+  width: 85%;
+  margin: 0 auto;
+}
+
+form .contents input {
+  width: 100%;
+  height: 35px;
+
+  padding: 10px 26px 10px 12px;
+
+  background: #ffffff;
+  border-radius: 8px;
+  border: none;
+
+  font-size: 16px;
+}
+
+.login form .contents button {
+  width: 100%;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login form .contents div {
+  margin-top: 10%;
+}
+
+.contents .alternative {
+  width: auto;
+  margin: 0;
+
+  font-size: 12px;
+  text-decoration: none;
+  color: #043f5f;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

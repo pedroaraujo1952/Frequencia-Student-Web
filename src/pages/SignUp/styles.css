@@ -1,0 +1,33 @@
+.signup .contents {
+  margin-top: 30px;
+}
+
+.signup .contents .field {
+  margin-top: 5%;
+}
+
+.signup .contents .buttonGroup button {
+  width: 100%;
+}
+
+@media only screen and (max-height: 600px) {
+  form .contents input {
+    height: 30px;
+  }
+
+  form .contents .selectCustom {
+    height: 30px;
+  }
+
+  .signup .contents {
+    margin-top: 10px;
+  }
+
+  .signup .contents .buttonGroup button {
+    margin-top: 6%;
+  }
+
+  .signup .contents .field {
+    margin-top: 4%;
+  }
+}
