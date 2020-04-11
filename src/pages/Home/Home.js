@@ -98,7 +98,7 @@ export default class Home extends Component {
         <Header title="Eventos" />
 
         <div className="events">
-          {this.state.events ? (
+          {this.state.events.length > 0 ? (
             this.state.events.map((event, index) => (
               <Card key={index} event={event} uid={this.state.uid} />
             ))
