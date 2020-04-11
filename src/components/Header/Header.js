@@ -13,22 +13,22 @@ import "./styles.css";
 const Header = ({ title }) => (
   <div className="header">
     <header>
-      { title === "Sobre Nós" ?
-        <NavLink to="/" className="alternative">
-          <img src={Back} id="back" alt="Back to Home Screen"  />
+      {title === "Sobre Nós" ? (
+        <NavLink to="/" className="back">
+          <img src={Back} id="back" alt="Back to Home Screen" />
         </NavLink>
-        :
-        <br/>
-      }
+      ) : (
+        <br />
+      )}
       <img src={Logo} alt="" />
       <h1>{title}</h1>
-      { title === "Eventos" ?
-        <NavLink to="/about" className="alternative">
+      {title === "Eventos" ? (
+        <NavLink to="/about" className="info">
           <img src={Info} id="info" alt="About Us" />
         </NavLink>
-        :
-        <br/>
-      }
+      ) : (
+        <br />
+      )}
     </header>
   </div>
 );
