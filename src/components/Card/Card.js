@@ -116,7 +116,7 @@ export default class Card extends Component {
 
         <div className="content">
           <div>
-            <p>Inicio: {this.state.event.begin}</p>
+            <p>Início: {this.state.event.begin}</p>
             <p>Fim: {this.state.event.end}</p>
           </div>
           <div style={{ width: "75px" }}>
@@ -151,6 +151,19 @@ export default class Card extends Component {
           >
             CHECK OUT
           </button>
+        </div>
+
+        <div className="caption">
+          <p>
+            {this.state.checkin
+              ? `Check in realizado às ${this.state.checkin}`
+              : ""}
+          </p>
+          <p>
+            {this.state.checkout
+              ? `Check out realizado às ${this.state.checkout}`
+              : ""}
+          </p>
         </div>
       </div>
     );

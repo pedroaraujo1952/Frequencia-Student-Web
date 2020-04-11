@@ -48,7 +48,7 @@
 }
 
 .card .content div {
-  width: 100px;
+  width: 120px;
 }
 
 .card .content img {
@@ -88,4 +88,14 @@
 .card a {
   text-decoration: none;
   color: #000;
+}
+
+.card .caption {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.card .caption p {
+  font-size: 13px;
+  margin-top: 2%;
 }
