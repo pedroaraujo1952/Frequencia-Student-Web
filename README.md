@@ -4,6 +4,27 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### Strictly Necessary ###
+
+To run the project with the Environment Variables (**.env**) in ReactJS, you first need to download the **env-cmd** dependency.
+Run in your console: `npm install --save env-cmd`
+
+Then you need to alterate the file **package.json**. 
+Change the following part of the code:
+```JSON
+"scripts": {
+    "start": "env-cmd -f ./.env.development react-scripts start",
+    "build": "env-cmd -f ./.env.development react-scripts build",
+    "test": "env-cmd -f ./.env.development react-scripts test",
+    "eject": "react-scripts eject"
+ }
+ ```
+  
+ Now, update the name of **.env.example** to **.env.development**.
+ 
+ Finally, fulfill **.env.development** with firebase config data.
+ You can see this config [here](http://shorturl.at/bezU9).
+
 ### `yarn start`
 
 Runs the app in the development mode.<br />
