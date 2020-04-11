@@ -41,8 +41,14 @@
   justify-content: center;
 }
 
-@media only screen 
-  and (max-device-width: 350px) {
-    #back { max-width: 30px; }
-    .header h1{font-size: 1.8em;}
-    .header .back{margin-right: 10px};}
+@media only screen and (max-device-width: 350px) {
+  #back {
+    max-width: 30px;
+  }
+  .header h1 {
+    font-size: 1.8em;
+  }
+  .header .back {
+    margin-right: 10px;
+  }
+}
