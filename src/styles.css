@@ -28,6 +28,10 @@ button {
   border: none;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .error {
   margin: 0;
   font-size: 18px;

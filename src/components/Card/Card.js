@@ -23,31 +23,11 @@ export default class Card extends Component {
     var today = new Date();
     var time = today.getHours() + "h" + today.getMinutes();
 
-    const { event } = this.state;
-    let user = event.students[this.state.uid];
-    user.checkin = time;
-    event.students[this.state.uid] = user;
-
     const data = {
-      begin: event.begin,
-      date: event.date,
-      description: event.description,
-      end: event.end,
-      keys: event.keys,
-      link: event.link,
-      students: event.students,
-      subject: event.subject,
-      title: event.title,
+      checkin: time
     };
 
-    const rootRef = database.ref("professores");
-    const eventRef = rootRef
-      .child(event.teacherUID)
-      .child("events")
-      .child(event.turma)
-      .child(event.eventID);
-
-    await eventRef.set(data);
+    this.handleSend(data)
 
     this.setState({ checkin: time });
   };
@@ -58,34 +38,19 @@ export default class Card extends Component {
     var today = new Date();
     var time = today.getHours() + "h" + today.getMinutes();
 
-    const { event } = this.state;
-    let user = event.students[this.state.uid];
-    user.checkout = time;
-    event.students[this.state.uid] = user;
-
     const data = {
-      begin: event.begin,
-      date: event.date,
-      description: event.description,
-      end: event.end,
-      keys: event.keys,
-      link: event.link,
-      students: event.students,
-      subject: event.subject,
-      title: event.title,
+      checkout: time
     };
 
-    const rootRef = database.ref("professores");
-    const eventRef = rootRef
-      .child(event.teacherUID)
-      .child("events")
-      .child(event.turma)
-      .child(event.eventID);
-
-    await eventRef.set(data);
+    this.handleSend(data)
 
     this.setState({ checkout: time });
   };
+
+  handleSend = (data) => {
+    var messageRequest = `professores/${this.state.event.teacherUID}/events/${this.state.event.turma}/${this.state.event.eventID}/students/${this.state.uid}`;
+    database.ref(messageRequest).update(data);
+  }
 
   render() {
     return (

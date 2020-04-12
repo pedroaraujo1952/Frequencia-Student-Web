@@ -34,3 +34,47 @@
   justify-content: center;
   align-items: center;
 }
+
+.popup {
+  margin-top: 100px;
+  width: 300px;
+  height: 220px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+.popup .popup_text_event {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.popup .popup_text {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.popup .popup_keyInput {
+  text-align: center;
+  margin-top: 20px;
+}
+.popup .popup_keyInput input {
+  width: 200px;
+  height: 40px;
+  border-radius: 10px;
+  padding-left: 10px;
+}
+
+.popup .popup_button {
+  text-align: center;
+}
+.popup .popup_button button {
+  border-radius: 20px;
+  width: 100px;
+  margin-top: 20px;
+}

@@ -5,6 +5,7 @@ import { fire, database } from "../../config/firebase";
 import * as FormatDate from "../../utils/FormatDate";
 
 import * as User from "../../controllers/UserController";
+import * as KeyPopup from "../../controllers/KeyPopupController";
 
 import Card from "../../components/Card/Card";
 import Backdrop from "../../components/Backdrop/Backdrop";
@@ -23,6 +24,11 @@ export default class Home extends Component {
       events: "",
 
       loading: false,
+
+      popup: false,
+      popup_event: null,
+      popup_event_key: '',
+      popup_key_input: ''
     };
   }
 
@@ -88,7 +94,49 @@ export default class Home extends Component {
         this.setState({ events, loading: false });
       }
     });
+    localStorage.setItem("key_is_done", 'false');
+    setInterval(() => {
+      var event = KeyPopup.nextEvent(this.state.events);
+      if(event !== null){
+        if(KeyPopup.areKeysInEvent(event)){
+          var [ popup_response, event_response, event_key ] = KeyPopup.compareTime(event, this.state.popup_event);
+          
+          if (event_key !== this.state.popup_event_key) localStorage.setItem("key_is_done", 'true');
+          
+          if (!popup_response && localStorage.getItem("key_is_done") === 'false') {
+              localStorage.setItem("key_is_done", 'true');
+              this.setState({popup: popup_response, popup_event: event_response, popup_event_key: event_key});
+          }
+          
+          if (popup_response && localStorage.getItem("key_is_done") === 'true') {
+              localStorage.setItem("key_is_done", 'false');
+              this.setState({popup: popup_response, popup_event: event_response, popup_event_key: event_key});
+          }
+        }
+      }
+    }, 1000)
   }
+
+  handleClickKey = ev => {
+    ev.preventDefault();
+
+    var response = KeyPopup.compareKeys(this.state.popup_event, this.state.popup_key_input, this.state.popup_event_key)
+    
+    if(response){
+
+      var [ messageRequest, data ] = KeyPopup.createMessageRequest(this.state.popup_event, this.state.uid, this.state.popup_event_key)
+
+      database.ref(messageRequest).update(data);
+
+      localStorage.setItem("key_is_done", 'false_');
+    }
+    
+    this.setState({popup: false})
+  }
+
+  handleChange = ev => {
+    this.setState({ [ev.target.name]: ev.target.value });
+  };
 
   render() {
     return (
@@ -96,6 +144,29 @@ export default class Home extends Component {
         <Backdrop loading={this.state.loading} />
 
         <Header title="Eventos" />
+
+        {this.state.popup ? (
+          <div className="popup">
+            <div className="popup_text_event">
+              {KeyPopup.popupText(this.state.popup_event)}   
+            </div>
+            <div className="popup_text">
+              Informe a {this.state.popup_event_key}
+            </div>
+            <div className="popup_keyInput">
+              <input 
+                type="text"
+                name="popup_key_input"
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="popup_button">
+              <button 
+                onClick={this.handleClickKey}
+              >Ok</button>
+            </div>
+          </div>
+        ) : null }
 
         <div className="events">
           {this.state.events.length > 0 ? (
