@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import { database } from "../../config/firebase";
+import formatTime from "../../utils/FormatTime";
 
 import Tv from "../../assets/tv.png";
 
@@ -24,10 +25,10 @@ export default class Card extends Component {
     var time = today.getHours() + "h" + today.getMinutes();
 
     const data = {
-      checkin: time
+      checkin: time,
     };
 
-    this.handleSend(data)
+    this.handleSend(data);
 
     this.setState({ checkin: time });
   };
@@ -39,10 +40,10 @@ export default class Card extends Component {
     var time = today.getHours() + "h" + today.getMinutes();
 
     const data = {
-      checkout: time
+      checkout: time,
     };
 
-    this.handleSend(data)
+    this.handleSend(data);
 
     this.setState({ checkout: time });
   };
@@ -50,9 +51,12 @@ export default class Card extends Component {
   handleSend = (data) => {
     var messageRequest = `professores/${this.state.event.teacherUID}/events/${this.state.event.turma}/${this.state.event.eventID}/students/${this.state.uid}`;
     database.ref(messageRequest).update(data);
-  }
+  };
 
   render() {
+    const checkin = this.state.checkin ? formatTime(this.state.checkin) : "";
+    const checkout = this.state.checkout ? formatTime(this.state.checkout) : "";
+
     return (
       <div className="card">
         <header>
@@ -119,15 +123,9 @@ export default class Card extends Component {
         </div>
 
         <div className="caption">
+          <p>{this.state.checkin ? `Check in realizado às ${checkin}` : ""}</p>
           <p>
-            {this.state.checkin
-              ? `Check in realizado às ${this.state.checkin}`
-              : ""}
-          </p>
-          <p>
-            {this.state.checkout
-              ? `Check out realizado às ${this.state.checkout}`
-              : ""}
+            {this.state.checkout ? `Check out realizado às ${checkout}` : ""}
           </p>
         </div>
       </div>
