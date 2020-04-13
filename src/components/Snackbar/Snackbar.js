@@ -19,7 +19,7 @@ export default function CustomSnackbar({ open, onClose, message, type }) {
       anchorOrigin={{ vertical, horizontal }}
       open={open}
       onClose={onClose}
-      autoHideDuration={6000}
+      autoHideDuration={3000}
     >
       <Alert onClose={onClose} severity={type} open={open}>
         {message}
