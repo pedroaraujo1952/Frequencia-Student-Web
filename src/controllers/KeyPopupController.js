@@ -9,6 +9,10 @@ export function timeNow() {
     time_now += "h0" + date.getMinutes().toString() + "min";
   else time_now += "h" + date.getMinutes().toString() + "min";
 
+  if (date.getMinutes() < 10)
+    time_now += "h0" + date.getMinutes().toString() + "min";
+  else time_now += "h" + date.getMinutes().toString() + "min";
+
   return time_now;
 }
 
