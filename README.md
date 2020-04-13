@@ -13,16 +13,16 @@ Then you need to alterate the file **package.json**.
 Change the following part of the code:
 ```JSON
 "scripts": {
-    "start": "env-cmd -f ./.env.development react-scripts start",
-    "build": "env-cmd -f ./.env.development react-scripts build",
-    "test": "env-cmd -f ./.env.development react-scripts test",
+    "start": "env-cmd -f ./.env react-scripts start",
+    "build": "env-cmd -f ./.env react-scripts build",
+    "test": "env-cmd -f ./.env react-scripts test",
     "eject": "react-scripts eject"
  }
  ```
   
- Now, update the name of **.env.example** to **.env.development**.
+ Now, update the name of **.env.example** to **.env**.
  
- Finally, fulfill **.env.development** with firebase config data.
+ Finally, fulfill **.env** with firebase config data.
  You can see this config [here](http://shorturl.at/bezU9).
 
 ### `yarn start`
