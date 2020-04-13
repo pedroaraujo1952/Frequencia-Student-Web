@@ -5,8 +5,8 @@ export function timeNow() {
     if (date.getHours() < 10)time_now = '0' + date.getHours().toString()
     else time_now = date.getHours().toString()
     
-    if (date.getMinutes() < 10)time_now += 'h0' + date.getMinutes().toString()
-    else time_now += 'h' + date.getMinutes().toString()
+    if (date.getMinutes() < 10)time_now += 'h0' + date.getMinutes().toString() + 'min'
+    else time_now += 'h' + date.getMinutes().toString() + 'min'
 
     return time_now;
 }
