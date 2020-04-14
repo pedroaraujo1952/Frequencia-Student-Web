@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { database } from "../../config/firebase";
 import formatTime from "../../utils/FormatTime";
 
+import * as KeyPopup from "../../controllers/KeyPopupController"
+
 import Tv from "../../assets/tv.png";
 
 import "./styles.css";
@@ -21,8 +23,8 @@ export default class Card extends Component {
   handleCheckin = async (ev) => {
     ev.preventDefault();
 
-    var today = new Date();
-    var time = today.getHours() + "h" + today.getMinutes();
+    var time = KeyPopup.timeNow()
+    time = time.substring(0, time.length - 3)
 
     const data = {
       checkin: time,
@@ -36,8 +38,8 @@ export default class Card extends Component {
   handleCheckout = async (ev) => {
     ev.preventDefault();
 
-    var today = new Date();
-    var time = today.getHours() + "h" + today.getMinutes();
+    var time = KeyPopup.timeNow()
+    time = time.substring(0, time.length - 3)
 
     const data = {
       checkout: time,

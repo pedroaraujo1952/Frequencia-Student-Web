@@ -13,9 +13,9 @@ Then you need to alterate the file **package.json**.
 Change the following part of the code:
 ```JSON
 "scripts": {
-    "start": "env-cmd -f ./.env react-scripts start",
-    "build": "env-cmd -f ./.env react-scripts build",
-    "test": "env-cmd -f ./.env react-scripts test",
+    "start": "env-cmd -f ./.env.development react-scripts start",
+    "build": "env-cmd -f ./.env.development react-scripts build",
+    "test": "env-cmd -f ./.env.development react-scripts test",
     "eject": "react-scripts eject"
  }
  ```

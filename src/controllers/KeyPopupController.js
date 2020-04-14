@@ -1,19 +1,23 @@
 export function timeNow() {
-  var date = new Date();
-  var time_now = "";
+  var date = new Date().toUTCString();
+  
+  date = updateTime(date.split(' ')[4])
 
-  if (date.getHours() < 10) time_now = "0" + date.getHours().toString();
-  else time_now = date.getHours().toString();
-
-  if (date.getMinutes() < 10)
-    time_now += "h0" + date.getMinutes().toString() + "min";
-  else time_now += "h" + date.getMinutes().toString() + "min";
-
-  if (date.getMinutes() < 10)
-    time_now += "h0" + date.getMinutes().toString() + "min";
-  else time_now += "h" + date.getMinutes().toString() + "min";
+  var time_now = date.substring(0,2) + 'h' + date.substring(3,5) + 'min';
 
   return time_now;
+}
+
+export function updateTime(date){
+  var hour = parseInt(date.substring(0,2));
+  hour -= 4;
+  
+  if(hour < 10)hour = '0' + hour.toString();
+  else hour = hour.toString();
+  
+  hour += date.substring(2,date.length);
+  
+  return hour
 }
 
 export function compareTime(event) {
@@ -93,15 +97,15 @@ export function compareKeys(event, key_input, key_number) {
 export function createMessageRequest(event, student_uid, key_number) {
   var data = {};
 
-  if (key_number === "palavra-passe 1") {
+  if (key_number === "1") {
     data = {
       key1: "ok",
     };
-  } else if (key_number === "palavra-passe 2") {
+  } else if (key_number === "2") {
     data = {
       key2: "ok",
     };
-  } else if (key_number === "palavra-passe 3") {
+  } else if (key_number === "3") {
     data = {
       key3: "ok",
     };
