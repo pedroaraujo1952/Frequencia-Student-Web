@@ -21,7 +21,7 @@ export default class About extends Component{
                         <div className = "group">
                             <h1>Designers</h1>
                             <ul>
-                                <li>Débora Colyer</li>
+                                <li>Débora Colhyer</li>
                                 <li>Isabella Melo</li>
                             </ul>
                         </div>
