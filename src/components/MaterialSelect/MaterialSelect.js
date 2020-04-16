@@ -41,6 +41,14 @@ export default function MaterialSelect({ onChange, value, name }) {
           onChange={onChange}
           input={<BootstrapInput />}
         >
+          <MenuItem value={"1AI"}>1AI</MenuItem>
+          <MenuItem value={"1BI"}>1BI</MenuItem>
+          <MenuItem value={"1CI"}>1CI</MenuItem>
+          <MenuItem value={"1AE"}>1AE</MenuItem>
+          <MenuItem value={"1BE"}>1BE</MenuItem>
+          <MenuItem value={"1AM"}>1AM</MenuItem>
+          <MenuItem value={"1BM"}>1BM</MenuItem>
+          <MenuItem value={"1CM"}>1CM</MenuItem>
           <MenuItem value={"3AI"}>3AI</MenuItem>
           <MenuItem value={"3BI"}>3BI</MenuItem>
           <MenuItem value={"3CI"}>3CI</MenuItem>
