@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { database } from "../../config/firebase";
 import formatTime from "../../utils/FormatTime";
 
-import * as KeyPopup from "../../controllers/KeyPopupController"
+import * as KeyPopup from "../../controllers/KeyPopupController";
 
 import Tv from "../../assets/tv.png";
 
@@ -23,8 +23,8 @@ export default class Card extends Component {
   handleCheckin = async (ev) => {
     ev.preventDefault();
 
-    var time = KeyPopup.timeNow()
-    time = time.substring(0, time.length - 3)
+    var time = KeyPopup.timeNow();
+    time = time.substring(0, time.length - 3);
 
     const data = {
       checkin: time,
@@ -38,8 +38,8 @@ export default class Card extends Component {
   handleCheckout = async (ev) => {
     ev.preventDefault();
 
-    var time = KeyPopup.timeNow()
-    time = time.substring(0, time.length - 3)
+    var time = KeyPopup.timeNow();
+    time = time.substring(0, time.length - 3);
 
     const data = {
       checkout: time,
@@ -64,6 +64,7 @@ export default class Card extends Component {
         <header>
           <p
             style={{
+              width: "100%",
               textAlign: "left",
               whiteSpace: "nowrap",
               overflow: "hidden",
@@ -73,9 +74,8 @@ export default class Card extends Component {
             {this.state.event.title}
           </p>
           <p
-            className="subtitle"
+            className="subtitle top"
             style={{
-              textAlign: "right",
               whiteSpace: "nowrap",
               overflow: "hidden",
               textOverflow: "ellipsis",

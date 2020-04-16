@@ -1,7 +1,24 @@
-div{display: block;}
-.team{width: 80%;margin: 30px auto 60px;overflow-y: auto;}
-ul{list-style: none;}
-.card{max-width: 400px; height: auto; padding: 10px; margin: 0 auto 20px; color: #000; background: #fff; border-radius: 10px; box-shadow: 0 4px 4px rgba(0,0,0,.25);}
-.group{color: #043F5F;}
-.group h1{text-align: center; font-size: 1.5em; margin-bottom: 10px;}
-.group li{text-align: center; font-weight: normal; margin-bottom: 10px;}
+div {
+  display: block;
+}
+.team {
+  width: 80%;
+  margin: 30px auto 60px;
+  overflow-y: auto;
+}
+ul {
+  list-style: none;
+}
+.group {
+  color: #043f5f;
+}
+.group h1 {
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+.group li {
+  text-align: center;
+  font-weight: normal;
+  margin-bottom: 10px;
+}

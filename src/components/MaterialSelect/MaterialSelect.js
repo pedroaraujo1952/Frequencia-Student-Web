@@ -44,6 +44,11 @@ export default function MaterialSelect({ onChange, value, name }) {
           <MenuItem value={"3AI"}>3AI</MenuItem>
           <MenuItem value={"3BI"}>3BI</MenuItem>
           <MenuItem value={"3CI"}>3CI</MenuItem>
+          <MenuItem value={"3AE"}>3AE</MenuItem>
+          <MenuItem value={"3BE"}>3BE</MenuItem>
+          <MenuItem value={"3AM"}>3AM</MenuItem>
+          <MenuItem value={"3BM"}>3BM</MenuItem>
+          <MenuItem value={"3CM"}>3CM</MenuItem>
         </Select>
       </FormControl>
     </div>

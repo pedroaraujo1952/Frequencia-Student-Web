@@ -5,7 +5,8 @@
 
   padding: 10px;
   margin: 0 auto;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  margin-top: 10px;
 
   color: #000;
   background: #ffffff;
@@ -20,7 +21,7 @@
   margin-bottom: 10px;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
   border-bottom: 1px solid #000;
@@ -30,6 +31,26 @@
 .card .subtitle {
   text-align: center;
   font-size: 12px;
+}
+
+.card .top {
+  /* min-width: 70px; */
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  border-radius: 20px;
+
+  text-align: center;
+  color: #fff;
+  background-color: #043f5f;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  bottom: 20px;
 }
 
 .card p {
