@@ -9,14 +9,7 @@ import Back from "../../assets/back_icon.png";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 import "./styles.css";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  Button,
-  List,
-  ListItem,
-} from "@material-ui/core";
+import { Dialog, List, ListItem } from "@material-ui/core";
 
 const Header = ({ title }) => {
   const [open, setOpen] = useState(false);
