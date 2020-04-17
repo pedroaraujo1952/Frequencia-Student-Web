@@ -41,6 +41,16 @@
   justify-content: center;
 }
 
+.header .options {
+  padding-top: 10px;
+  margin-left: 20px;
+}
+
+.dialogButton {
+  width: 200px;
+  margin: 0;
+}
+
 @media only screen and (max-device-width: 350px) {
   #back {
     max-width: 30px;
