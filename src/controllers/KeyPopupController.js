@@ -1,23 +1,25 @@
 export function timeNow() {
   var date = new Date().toUTCString();
-  
-  date = updateTime(date.split(' ')[4])
 
-  var time_now = date.substring(0,2) + 'h' + date.substring(3,5) + 'min';
+  date = updateTime(date.split(" ")[4]);
 
+  var time_now = date.substring(0, 2) + "h" + date.substring(3, 5) + "min";
   return time_now;
 }
 
-export function updateTime(date){
-  var hour = parseInt(date.substring(0,2));
+export function updateTime(date) {
+  var hour = parseInt(date.substring(0, 2));
+
   hour -= 4;
-  
-  if(hour < 10)hour = '0' + hour.toString();
+
+  if (hour < 10 && hour > 0) hour = "0" + hour.toString();
+  else if (hour < 0) hour = 24 + hour;
   else hour = hour.toString();
-  
-  hour += date.substring(2,date.length);
-  
-  return hour
+
+  hour += date.substring(2, date.length);
+
+  // console.log(hour);
+  return hour;
 }
 
 export function compareTime(event) {
