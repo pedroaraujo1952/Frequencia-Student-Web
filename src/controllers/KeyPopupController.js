@@ -18,20 +18,23 @@ export function updateTime(date) {
 
   hour += date.substring(2, date.length);
 
-  // console.log(hour);
   return hour;
 }
 
-export function compareTime(event) {
-  if (event.keys.key1.time === timeNow()) {
-    return [true, event, "1"];
-  } else if (event.keys.key2.time === timeNow()) {
-    return [true, event, "2"];
-  } else if (event.keys.key3.time === timeNow()) {
-    return [true, event, "3"];
+export function compareTime(event, is_check) {
+  var response = [false, null, ""];
+
+  if(is_check){
+    if (event.keys.key1.time === timeNow()) {
+      response = [true, event, "1"];
+    } else if (event.keys.key2.time === timeNow()) {
+      response = [true, event, "2"];
+    } else if (event.keys.key3.time === timeNow()) {
+      response = [true, event, "3"];
+    }
   }
 
-  return [false, null, ""];
+  return response;
 }
 
 export function areKeysInEvent(event) {
@@ -60,6 +63,7 @@ export function nextEvent(events) {
   var next_event_index = 0;
   var current_index = 0;
   var check = [];
+  var is_check = true;
 
   events.forEach((event) => {
     var dif = compareBetweenEvents(event.begin, timeNow());
@@ -85,14 +89,14 @@ export function nextEvent(events) {
   if(next_event){
     if(!next_event.checkin || !next_event.checkout){
       for(current_index=0; current_index < check.length; current_index++){
-        if(current_index !== next_event_index){
-          check[current_index] = false;
-        }
+        if(current_index !== next_event_index)check[current_index] = false;
       }
     }
+    if(!next_event.checkin)is_check = false;
+    if(next_event.checkin && next_event.checkout)is_check = false;
   }
 
-  return [next_event, check];
+  return [next_event, check, is_check];
 }
 
 export function popupText(event) {

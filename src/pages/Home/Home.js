@@ -103,7 +103,7 @@ export default class Home extends Component {
     //Key validation
     localStorage.setItem("key_is_done", "false");
     setInterval(() => {
-      var [ event, check_order ] = KeyPopup.nextEvent(this.state.events);
+      var [ event, check_order, is_check ] = KeyPopup.nextEvent(this.state.events);
       this.setState({check_order})
       if (event !== null) {
         if (KeyPopup.areKeysInEvent(event)) {
@@ -111,7 +111,7 @@ export default class Home extends Component {
             popup_response,
             event_response,
             event_key,
-          ] = KeyPopup.compareTime(event, this.state.popup_event);
+          ] = KeyPopup.compareTime(event, is_check);
 
           if (event_key !== this.state.popup_event_key)
             localStorage.setItem("key_is_done", "true");
