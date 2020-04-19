@@ -57,19 +57,42 @@ export function compareBetweenEvents(event1, event2) {
 
 export function nextEvent(events) {
   var next_event = null;
+  var next_event_index = 0;
+  var current_index = 0;
+  var check = [];
+
   events.forEach((event) => {
     var dif = compareBetweenEvents(event.begin, timeNow());
+    var current_check = false;
 
-    if (dif <= 50) {
+    if (dif <= compareBetweenEvents(event.begin, event.end)) {
       if (next_event !== null) {
         dif = compareBetweenEvents(event.begin, next_event.begin);
-        if (dif > 0) next_event = event;
+        if (dif > 0) {
+          next_event = event;
+          next_event_index = current_index;
+        }
       } else {
         next_event = event;
+        next_event_index = current_index;
+      }
+      if(dif >= -10) current_check = true;
+    }
+    current_index++;
+    check.push(current_check);
+  });
+
+  if(next_event){
+    if(!next_event.checkin || !next_event.checkout){
+      for(current_index=0; current_index < check.length; current_index++){
+        if(current_index !== next_event_index){
+          check[current_index] = false;
+        }
       }
     }
-  });
-  return next_event;
+  }
+
+  return [next_event, check];
 }
 
 export function popupText(event) {

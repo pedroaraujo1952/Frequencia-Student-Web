@@ -103,6 +103,7 @@
 
 .card .buttonGroup button:disabled {
   color: #000;
+  cursor: default;
   background-color: #b5b5b5;
 }
 

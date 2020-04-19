@@ -24,6 +24,7 @@ export default class Home extends Component {
       uid: null,
       user: null,
       events: "",
+      check_order: [],
 
       loading: false,
 
@@ -102,7 +103,8 @@ export default class Home extends Component {
     //Key validation
     localStorage.setItem("key_is_done", "false");
     setInterval(() => {
-      var event = KeyPopup.nextEvent(this.state.events);
+      var [ event, check_order ] = KeyPopup.nextEvent(this.state.events);
+      this.setState({check_order})
       if (event !== null) {
         if (KeyPopup.areKeysInEvent(event)) {
           var [
@@ -228,7 +230,12 @@ export default class Home extends Component {
         <div className="events">
           {this.state.events.length > 0 ? (
             this.state.events.map((event, index) => (
-              <Card key={index} event={event} uid={this.state.uid} />
+              <Card 
+                key={index} 
+                event={event} 
+                uid={this.state.uid} 
+                check={this.state.check_order[index]}
+              />
             ))
           ) : (
             <div className="noEvent card">

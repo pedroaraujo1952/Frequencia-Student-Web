@@ -17,7 +17,12 @@ export default class Card extends Component {
       event: this.props.event,
       checkin: this.props.event.checkin,
       checkout: this.props.event.checkout,
+      check: this.props.check
     };
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({check: nextProps.check})
   }
 
   handleCheckin = async (ev) => {
@@ -112,13 +117,13 @@ export default class Card extends Component {
         <div className="buttonGroup">
           <button
             onClick={this.handleCheckin}
-            disabled={this.state.checkin ? true : false}
+            disabled={this.state.checkin || !this.state.check ? true : false}
           >
             CHECK IN
           </button>
           <button
             onClick={this.handleCheckout}
-            disabled={!this.state.checkin || this.state.checkout ? true : false}
+            disabled={!this.state.checkin || this.state.checkout || !this.state.check ? true : false}
           >
             CHECK OUT
           </button>
