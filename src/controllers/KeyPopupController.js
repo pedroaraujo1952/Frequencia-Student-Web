@@ -12,7 +12,7 @@ export function updateTime(date) {
 
   hour -= 4;
 
-  if (hour < 10 && hour > 0) hour = "0" + hour.toString();
+  if (hour < 10 && hour >= 0) hour = "0" + hour.toString();
   else if (hour < 0) hour = 24 + hour;
   else hour = hour.toString();
 
@@ -24,7 +24,7 @@ export function updateTime(date) {
 export function compareTime(event, is_check) {
   var response = [false, null, ""];
 
-  if(is_check){
+  if (is_check) {
     if (event.keys.key1.time === timeNow()) {
       response = [true, event, "1"];
     } else if (event.keys.key2.time === timeNow()) {
@@ -80,20 +80,20 @@ export function nextEvent(events) {
         next_event = event;
         next_event_index = current_index;
       }
-      if(dif >= -10) current_check = true;
+      if (dif >= -10) current_check = true;
     }
     current_index++;
     check.push(current_check);
   });
 
-  if(next_event){
-    if(!next_event.checkin || !next_event.checkout){
-      for(current_index=0; current_index < check.length; current_index++){
-        if(current_index !== next_event_index)check[current_index] = false;
+  if (next_event) {
+    if (!next_event.checkin || !next_event.checkout) {
+      for (current_index = 0; current_index < check.length; current_index++) {
+        if (current_index !== next_event_index) check[current_index] = false;
       }
     }
-    if(!next_event.checkin)is_check = false;
-    if(next_event.checkin && next_event.checkout)is_check = false;
+    if (!next_event.checkin) is_check = false;
+    if (next_event.checkin && next_event.checkout) is_check = false;
   }
 
   return [next_event, check, is_check];
