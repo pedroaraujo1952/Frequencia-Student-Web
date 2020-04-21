@@ -93,14 +93,13 @@ export default class Home extends Component {
                 };
 
                 events.push(eventData);
+                console.log(events);
               }
             });
           }
+          events.sort(compare);
+          this.setState({ events, loading: false });
         });
-
-        events.sort(compare);
-
-        this.setState({ events, loading: false });
       }
     });
 
