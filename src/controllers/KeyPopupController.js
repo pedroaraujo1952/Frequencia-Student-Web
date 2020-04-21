@@ -114,11 +114,14 @@ export function popupText(event) {
 
 export function compareKeys(event, key_input, key_number) {
   if (key_number === "1") {
-    if (event.keys.key1.key === key_input) return true;
+    if (event.keys.key1.key.toLowerCase() === key_input.toLowerCase())
+      return true;
   } else if (key_number === "2") {
-    if (event.keys.key2.key === key_input) return true;
+    if (event.keys.key2.key.toLowerCase() === key_input.toLowerCase())
+      return true;
   } else if (key_number === "3") {
-    if (event.keys.key3.key === key_input) return true;
+    if (event.keys.key3.key.toLowerCase() === key_input.toLowerCase())
+      return true;
   }
   return false;
 }
