@@ -136,7 +136,7 @@ export default class Card extends Component {
           </button>
           <button
             onClick={this.handleCheckout}
-            disabled={!checkin || checkout || !this.state.check ? true : false}
+            disabled={!checkin || checkout ? true : false}
           >
             CHECK OUT
           </button>
