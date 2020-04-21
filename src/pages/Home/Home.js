@@ -16,6 +16,7 @@ import HomeImg from "../../assets/home.jpg";
 
 import "./styles.css";
 import CustomSnackbar from "../../components/Snackbar/Snackbar";
+import compare from "../../utils/SortEvents";
 
 export default class Home extends Component {
   constructor() {
@@ -96,15 +97,29 @@ export default class Home extends Component {
             });
           }
         });
+
+        events.sort(compare);
+
         this.setState({ events, loading: false });
       }
     });
 
+    //Event sorting
+    setInterval(() => {
+      let { events } = this.state;
+
+      events.sort(compare);
+
+      this.setState({ events });
+    }, 60000);
+
     //Key validation
     localStorage.setItem("key_is_done", "false");
     setInterval(() => {
-      var [ event, check_order, is_check ] = KeyPopup.nextEvent(this.state.events);
-      this.setState({check_order})
+      var [event, check_order, is_check] = KeyPopup.nextEvent(
+        this.state.events
+      );
+      this.setState({ check_order });
       if (event !== null) {
         if (KeyPopup.areKeysInEvent(event)) {
           var [
@@ -230,10 +245,10 @@ export default class Home extends Component {
         <div className="events">
           {this.state.events.length > 0 ? (
             this.state.events.map((event, index) => (
-              <Card 
-                key={index} 
-                event={event} 
-                uid={this.state.uid} 
+              <Card
+                key={index}
+                event={event}
+                uid={this.state.uid}
                 check={this.state.check_order[index]}
               />
             ))
