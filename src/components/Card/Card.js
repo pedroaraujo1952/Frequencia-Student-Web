@@ -14,15 +14,16 @@ export default class Card extends Component {
     super(props);
     this.state = {
       uid: this.props.uid,
-      event: this.props.event,
-      checkin: this.props.event.checkin,
-      checkout: this.props.event.checkout,
-      check: this.props.check
+      index: this.props.index,
+      events: this.props.events,
+      checkin: "",
+      checkout: "",
+      check: this.props.check,
     };
   }
 
-  componentWillReceiveProps(nextProps){
-    this.setState({check: nextProps.check})
+  componentWillReceiveProps(nextProps) {
+    this.setState({ check: nextProps.check });
   }
 
   handleCheckin = async (ev) => {
@@ -56,13 +57,25 @@ export default class Card extends Component {
   };
 
   handleSend = (data) => {
-    var messageRequest = `professores/${this.state.event.teacherUID}/events/${this.state.event.turma}/${this.state.event.eventID}/students/${this.state.uid}`;
+    var messageRequest = `professores/${
+      this.state.events[this.state.index].teacherUID
+    }/events/${this.state.events[this.state.index].turma}/${
+      this.state.events[this.state.index].eventID
+    }/students/${this.state.uid}`;
     database.ref(messageRequest).update(data);
   };
 
   render() {
-    const checkin = this.state.checkin ? formatTime(this.state.checkin) : "";
-    const checkout = this.state.checkout ? formatTime(this.state.checkout) : "";
+    let checkin = !this.state.checkin
+      ? this.state.events[this.state.index].checkin
+        ? formatTime(this.state.events[this.state.index].checkin)
+        : ""
+      : formatTime(this.state.checkin);
+    let checkout = !this.state.checkout
+      ? this.state.events[this.state.index].checkout
+        ? formatTime(this.state.events[this.state.index].checkout)
+        : ""
+      : formatTime(this.state.checkout);
 
     return (
       <div className="card">
@@ -76,7 +89,7 @@ export default class Card extends Component {
               textOverflow: "ellipsis",
             }}
           >
-            {this.state.event.title}
+            {this.state.events[this.state.index].title}
           </p>
           <p
             className="subtitle top"
@@ -86,18 +99,18 @@ export default class Card extends Component {
               textOverflow: "ellipsis",
             }}
           >
-            {this.state.event.subject}
+            {this.state.events[this.state.index].subject}
           </p>
         </header>
 
         <div className="content">
           <div>
-            <p>Início: {this.state.event.begin}</p>
-            <p>Fim: {this.state.event.end}</p>
+            <p>Início: {this.state.events[this.state.index].begin}</p>
+            <p>Fim: {this.state.events[this.state.index].end}</p>
           </div>
           <div style={{ width: "75px" }}>
             <a
-              href={this.state.event.link}
+              href={this.state.events[this.state.index].link}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -117,23 +130,21 @@ export default class Card extends Component {
         <div className="buttonGroup">
           <button
             onClick={this.handleCheckin}
-            disabled={this.state.checkin || !this.state.check ? true : false}
+            disabled={checkin || !this.state.check ? true : false}
           >
             CHECK IN
           </button>
           <button
             onClick={this.handleCheckout}
-            disabled={!this.state.checkin || this.state.checkout || !this.state.check ? true : false}
+            disabled={!checkin || checkout || !this.state.check ? true : false}
           >
             CHECK OUT
           </button>
         </div>
 
         <div className="caption">
-          <p>{this.state.checkin ? `Check in realizado às ${checkin}` : ""}</p>
-          <p>
-            {this.state.checkout ? `Check out realizado às ${checkout}` : ""}
-          </p>
+          <p>{checkin ? `Check in realizado às ${checkin}` : ""}</p>
+          <p>{checkout ? `Check out realizado às ${checkout}` : ""}</p>
         </div>
       </div>
     );

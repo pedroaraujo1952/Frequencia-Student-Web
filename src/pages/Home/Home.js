@@ -93,24 +93,13 @@ export default class Home extends Component {
                 };
 
                 events.push(eventData);
-                console.log(events);
               }
             });
           }
-          events.sort(compare);
-          this.setState({ events, loading: false });
+          this.setState({ events: events.sort(compare), loading: false });
         });
       }
     });
-
-    //Event sorting
-    setInterval(() => {
-      let { events } = this.state;
-
-      events.sort(compare);
-
-      this.setState({ events });
-    }, 60000);
 
     //Key validation
     localStorage.setItem("key_is_done", "false");
@@ -246,7 +235,8 @@ export default class Home extends Component {
             this.state.events.map((event, index) => (
               <Card
                 key={index}
-                event={event}
+                index={index}
+                events={this.state.events}
                 uid={this.state.uid}
                 check={this.state.check_order[index]}
               />
