@@ -121,15 +121,29 @@ export default class SignUp extends Component {
   };
 
   handleChange = (ev) => {
-    this.setState({
-      [ev.target.name]: ev.target.value,
-      nameError: "",
-      raError: "",
-      emailError: "",
-      classroomError: "",
-      pswdError: "",
-      confirmPswdError: "",
-    });
+    if (ev.target.name === "ra") {
+      if (ev.target.value.length <= 6) {
+        this.setState({
+          [ev.target.name]: ev.target.value,
+          nameError: "",
+          raError: "",
+          emailError: "",
+          classroomError: "",
+          pswdError: "",
+          confirmPswdError: "",
+        });
+      }
+    } else {
+      this.setState({
+        [ev.target.name]: ev.target.value,
+        nameError: "",
+        raError: "",
+        emailError: "",
+        classroomError: "",
+        pswdError: "",
+        confirmPswdError: "",
+      });
+    }
   };
 
   render() {
@@ -161,7 +175,12 @@ export default class SignUp extends Component {
 
             <div className="field">
               <p>RA</p>
-              <input type="number" name="ra" onChange={this.handleChange} />
+              <input
+                type="number"
+                name="ra"
+                onChange={this.handleChange}
+                value={this.state.ra}
+              />
               <p className="error">{this.state.raError}</p>
             </div>
 

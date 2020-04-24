@@ -49,6 +49,14 @@ export default function MaterialSelect({ onChange, value, name }) {
           <MenuItem value={"1AM"}>1AM</MenuItem>
           <MenuItem value={"1BM"}>1BM</MenuItem>
           <MenuItem value={"1CM"}>1CM</MenuItem>
+          <MenuItem value={"2AI"}>2AI</MenuItem>
+          <MenuItem value={"2BI"}>2BI</MenuItem>
+          <MenuItem value={"2CI"}>2CI</MenuItem>
+          <MenuItem value={"2AE"}>2AE</MenuItem>
+          <MenuItem value={"2BE"}>2BE</MenuItem>
+          <MenuItem value={"2AM"}>2AM</MenuItem>
+          <MenuItem value={"2BM"}>2BM</MenuItem>
+          <MenuItem value={"2CM"}>2CM</MenuItem>
           <MenuItem value={"3AI"}>3AI</MenuItem>
           <MenuItem value={"3BI"}>3BI</MenuItem>
           <MenuItem value={"3CI"}>3CI</MenuItem>

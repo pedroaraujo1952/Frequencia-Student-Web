@@ -72,7 +72,10 @@ const Header = ({ title }) => {
         <h1>{title}</h1>
         {title === "Eventos" ? (
           <div className="options">
-            <MoreVertIcon style={{ fontSize: 40 }} onClick={handleClickOpen} />
+            <MoreVertIcon
+              style={{ fontSize: 40, cursor: "pointer" }}
+              onClick={handleClickOpen}
+            />
           </div>
         ) : (
           <br />
