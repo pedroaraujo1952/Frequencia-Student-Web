@@ -17,6 +17,7 @@ import HomeImg from "../../assets/home.jpg";
 import "./styles.css";
 import CustomSnackbar from "../../components/Snackbar/Snackbar";
 import compare from "../../utils/SortEvents";
+import { Redirect } from "react-router-dom";
 
 export default class Home extends Component {
   constructor() {
@@ -50,6 +51,12 @@ export default class Home extends Component {
     }
 
     this.setState({ user: await User.getUser(this.state.uid) });
+
+    if (!this.state.user.test_done) {
+      this.setState({ loading: false, vocational_test: true });
+
+      return;
+    }
 
     //GET Events
     const { turma } = await User.getUser(this.state.uid);
@@ -208,6 +215,8 @@ export default class Home extends Component {
   };
 
   render() {
+    if (this.state.vocational_test) return <Redirect to={{ pathname: "/test", state: {user: this.state.user}}}/>;
+
     return (
       <div className="home">
         <Backdrop loading={this.state.loading} />

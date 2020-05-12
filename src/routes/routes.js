@@ -7,6 +7,7 @@ import Home from "../pages/Home/Home";
 import Error404 from "../errors/Error404/404";
 import About from "../pages/About/About";
 import PrivateRoute from "./privateRoutes";
+import VocationalTest from "../pages/VocationalTest/VocationalTest";
 
 const routes = () => (
   <BrowserRouter>
@@ -15,6 +16,7 @@ const routes = () => (
       <Route exact path="/signup" component={SignUp} />
       <PrivateRoute exact path="/" component={Home} />
       <PrivateRoute exact path="/about" component={About} />
+      <PrivateRoute exact path="/test" component={VocationalTest} />
       <Route path="*" component={Error404} />
     </Switch>
   </BrowserRouter>
