@@ -32,6 +32,8 @@ export default class VocationalTest extends Component {
         current_group: -1,
         current_question: -1,
         current_answer: '',
+
+        answers: '',
     };
 
     this.state.test.init();
@@ -45,12 +47,13 @@ export default class VocationalTest extends Component {
     this.setState({ current_answer })
   };
 
-  sendResult = async (letter) => {
+  sendResult = async (letter, answers) => {
     await VocationalTestController
         .sendVocationalTestInfoToDatabase(
             localStorage.getItem("uid"),
             this.props.location.state.user, 
-            letter);
+            letter,
+            answers);
   }
 
   render() {
@@ -148,11 +151,17 @@ export default class VocationalTest extends Component {
                         <div className="go-button">
                             <button onClick={(ev) => {
                                 ev.preventDefault();
-                                var { current_group, current_question, current_answer } = this.state;
+                                var { current_group, 
+                                    current_question, 
+                                    current_answer, 
+                                    answers, 
+                                } = this.state;
                                 
                                 if (!current_answer) {
                                     return;
                                 }
+
+                                answers += current_answer + '-'
 
                                 current_answer = '';
 
@@ -170,6 +179,7 @@ export default class VocationalTest extends Component {
                                     current_group,
                                     current_question,
                                     current_answer,
+                                    answers
                                 });
                             }}>
                                 Próximo
@@ -178,11 +188,13 @@ export default class VocationalTest extends Component {
                     : 
                         <button onClick={(ev) => {
                             ev.preventDefault();
-                            var { current_answer } = this.state;
+                            var { current_answer, answers } = this.state;
                             
                             if (!current_answer) {
                                 return;
                             }
+
+                            answers += current_answer;
                             
                             this.state.test.increase(this.state.current_answer)
 
@@ -193,10 +205,11 @@ export default class VocationalTest extends Component {
                             this.setState({
                                 test_started: false,
                                 test_finished: true,
-                                result
+                                result,
+                                answers,
                             });
 
-                            this.sendResult(result.letter);
+                            this.sendResult(result.letter, answers);
                         }}>
                             Finalizar
                         </button>
