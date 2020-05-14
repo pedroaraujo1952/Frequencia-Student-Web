@@ -1,10 +1,9 @@
 import { database } from "../config/firebase";
 
-export async function sendVocationalTestInfoToDatabase(uid, user, letter, answers) {
+export async function sendVocationalTestInfoToDatabase(uid, user, answers) {
     const classroom = user.turma;
 
     const additional_data = {
-        test_result: letter,
         test_answers: answers,
     };
 

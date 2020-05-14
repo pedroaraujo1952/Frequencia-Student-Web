@@ -7,6 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 
 import * as VocationalTestController from "../../controllers/VocationalTestController";
+import * as User from "../../controllers/UserController";
 
 import Data from './Data'
 
@@ -34,11 +35,23 @@ export default class VocationalTest extends Component {
         current_answer: '',
 
         answers: '',
+        user: null,
     };
 
     this.state.test.init();
   }
   
+  
+  async componentDidMount() {
+    this.setState({ user: await User.getUser(
+        localStorage.getItem("uid")) 
+    });
+
+    if (this.state.user.test_answers) {
+      this.setState({ back_home: true });
+    }
+  }
+
   handleChange = (event) => {
     var { current_answer } = this.state;
 
@@ -47,12 +60,11 @@ export default class VocationalTest extends Component {
     this.setState({ current_answer })
   };
 
-  sendResult = async (letter, answers) => {
+  sendResult = async (answers) => {
     await VocationalTestController
         .sendVocationalTestInfoToDatabase(
             localStorage.getItem("uid"),
-            this.props.location.state.user, 
-            letter,
+            this.props.location.state.user,
             answers);
   }
 
@@ -64,71 +76,52 @@ export default class VocationalTest extends Component {
             <Backdrop loading={this.state.loading} />
             {!this.state.test_started ? 
                 <div>
-                    <div className="school-text">
-                        <img src={Logo} alt="Frequencia" />  
-                    </div>
-                    
-                    <div className="test-text">
-                        <h1>Teste Vocacional</h1>
-                    </div>
-
                     {!this.state.test_finished ?
-                        <div className="init-button">
-                            <button onClick={(ev) => {
-                                ev.preventDefault();
-                                this.setState({ 
-                                    test_started: true,
-                                    current_group: 0,
-                                    current_question: 0,
-                                });
-                            }}>
-                                Iniciar agora
-                            </button>
+                        <div>
+                            <div className="school-text">
+                                <img src={Logo} alt="Frequencia" />  
+                            </div>
+                            
+                            <div className="test-text">
+                                <h1>TESTE VOCACIONAL</h1>
+                            </div>
+                            <div className="init-button">
+                                <button onClick={(ev) => {
+                                    ev.preventDefault();
+                                    this.setState({ 
+                                        test_started: true,
+                                        current_group: 0,
+                                        current_question: 0,
+                                    });
+                                }}>
+                                    Iniciar agora
+                                </button>
+                            </div>
                         </div>
                     : 
                         <div className="test-result">
                             <h1>Resultado</h1>
-                            <h2>Área: {this.state.result.area}</h2>
-                            <h2>Descrição: {this.state.result.description}</h2>
-                            <h2>Profissões: {this.state.result.professions}</h2>
-                            <button onClick={(ev) => {
-                                ev.preventDefault();
-                                this.setState({
-                                    back_home: true,
-                                });
-                            }}>
-                                Voltar para home
-                            </button>
+                            <h2>Área:</h2>
+                            <h3>{this.state.result.area}</h3>
+                            <h2>Descrição:</h2>
+                            <h3>{this.state.result.description}</h3>
+                            <h2>Profissões:</h2>
+                            <h3>{this.state.result.professions}</h3>
+                            <div className="test-result-button">
+                                <button onClick={(ev) => {
+                                    ev.preventDefault();
+                                    this.setState({
+                                        back_home: true,
+                                    });
+                                }}>
+                                    Voltar para home
+                                </button>
+                            </div>
                         </div>
                     }
                 </div>
             :
                 <div>
-                    {/*{(this.state.current_question > 0 && this.state.current_group === 0) 
-                    || (this.state.current_group > 0) ?
-                        <div className="back-button">
-                            <button onClick={(ev) => {
-                                ev.preventDefault();
-                                var { current_group, current_question } = this.state;
-                                
-                                current_question -= 1;
-
-                                if (current_question === -1) {
-                                    current_group -= 1;
-                                    current_question = this.state.test
-                                    .data[this.state.current_group][0].length - 1;
-                                }
-                                
-                                this.setState({
-                                    current_group,
-                                    current_question 
-                                });
-                            }}>
-                                Voltar
-                            </button>
-                        </div>
-                    : null}*/}
-
                     <div className="group-name">
                         <h1>{this.state.test.data[this.state.current_group][1]}</h1>
                     </div>
@@ -181,38 +174,44 @@ export default class VocationalTest extends Component {
                                     current_answer,
                                     answers
                                 });
+
+                                window.scrollTo(0, 0);
                             }}>
                                 Próximo
                             </button>
                         </div>
                     : 
-                        <button onClick={(ev) => {
-                            ev.preventDefault();
-                            var { current_answer, answers } = this.state;
-                            
-                            if (!current_answer) {
-                                return;
-                            }
+                        <div className="end-button">
+                            <button onClick={(ev) => {
+                                ev.preventDefault();
+                                var { current_answer, answers } = this.state;
+                                
+                                if (!current_answer) {
+                                    return;
+                                }
 
-                            answers += current_answer;
-                            
-                            this.state.test.increase(this.state.current_answer)
+                                answers += current_answer;
+                                
+                                this.state.test.increase(this.state.current_answer)
 
-                            var { result } = this.state;
+                                var { result } = this.state;
 
-                            result = this.state.test.getResult();
+                                result = this.state.test.getResult();
 
-                            this.setState({
-                                test_started: false,
-                                test_finished: true,
-                                result,
-                                answers,
-                            });
+                                this.setState({
+                                    test_started: false,
+                                    test_finished: true,
+                                    result,
+                                    answers,
+                                });
 
-                            this.sendResult(result.letter, answers);
-                        }}>
-                            Finalizar
-                        </button>
+                                this.sendResult(answers);
+                                
+                                window.scrollTo(0, 0);
+                            }}>
+                                Finalizar
+                            </button>
+                        </div>
                     }
                 </div>
             }

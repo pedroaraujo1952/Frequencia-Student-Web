@@ -1,0 +1,93 @@
+.vocational-test {
+    width: 80%;
+  
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 60px;
+  
+    overflow-y: auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vocational-test button {
+    width: 100px;
+}
+
+.init-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.school-text img {
+    max-width: 100%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.test-text {
+    text-align: center;
+}
+
+.test-result {
+    margin: 5%;
+    padding: 5%;
+    height: auto;
+
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+.test-result h2 {
+    margin-top: 5%;
+    font-size: x-large;
+}
+
+.test-result h3 {
+    font-size: medium;
+}
+
+.test-result-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.group-name {
+    text-align: center;
+}
+
+.go-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.choices {
+    margin-top: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MuiFormGroup-root {
+    margin: 5%;
+    padding: 5%;
+
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.5);
+
+}
+
+.end-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

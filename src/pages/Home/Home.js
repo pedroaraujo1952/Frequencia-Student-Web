@@ -52,7 +52,7 @@ export default class Home extends Component {
 
     this.setState({ user: await User.getUser(this.state.uid) });
 
-    if (!this.state.user.test_result) {
+    if (!this.state.user.test_answers) {
       this.setState({ loading: false, vocational_test: true });
 
       return;
