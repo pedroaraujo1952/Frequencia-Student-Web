@@ -89,7 +89,7 @@ export default class Card extends Component {
               textOverflow: "ellipsis",
             }}
           >
-            {this.state.events[this.state.index].title}
+            {this.state.events[this.state.index].event.name}
           </p>
           <p
             className="subtitle top"
@@ -99,18 +99,18 @@ export default class Card extends Component {
               textOverflow: "ellipsis",
             }}
           >
-            {this.state.events[this.state.index].subject}
+            {this.state.events[this.state.index].event.subject}
           </p>
         </header>
 
         <div className="content">
           <div>
-            <p>Início: {this.state.events[this.state.index].begin}</p>
-            <p>Fim: {this.state.events[this.state.index].end}</p>
+            <p>Início: {this.state.events[this.state.index].event.begin}</p>
+            <p>Fim: {this.state.events[this.state.index].event.end}</p>
           </div>
           <div style={{ width: "75px" }}>
             <a
-              href={this.state.events[this.state.index].link}
+              href={this.state.events[this.state.index].event.link}
               target="_blank"
               rel="noopener noreferrer"
             >

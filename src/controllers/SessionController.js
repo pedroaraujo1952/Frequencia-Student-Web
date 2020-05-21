@@ -13,15 +13,15 @@ export async function signUp({ name, classroom, ra, email, pswd }) {
         const { uid } = user.user;
 
         const data = {
-          uid,
           name,
           classroom,
           ra,
         };
 
-        User.createUser(data).then(
+        User.createUser({ uid, ...data }).then(
           (uid) => {
             localStorage.setItem("uid", uid);
+            localStorage.setItem("user", data);
             resolve(true);
           },
           (error) => {
@@ -44,7 +44,16 @@ export async function login(email, password) {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
-        resolve(user.user.uid);
+        const rootRef = fire.database().ref("students");
+        rootRef
+          .child(user.user.uid)
+          .once("value", (snap) => {
+            const userJSON = snap.val();
+            localStorage.setItem("user", JSON.stringify(userJSON));
+          })
+          .then(() => {
+            resolve(user.user.uid);
+          });
       })
       .catch((error) => {
         const ERROR = new Error(error);
