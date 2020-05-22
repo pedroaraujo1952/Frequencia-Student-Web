@@ -18,13 +18,16 @@ import "./styles.css";
 import CustomSnackbar from "../../components/Snackbar/Snackbar";
 import compare from "../../utils/SortEvents";
 
+import { isTimeBetween } from "../../utils/FormatTime";
+
 export default class Home extends Component {
   constructor() {
     super();
     this.state = {
       uid: null,
       user: null,
-      events: "",
+      events: [],
+      activeEventIndex: null,
       check_order: [],
 
       loading: false,
@@ -68,18 +71,54 @@ export default class Home extends Component {
       .equalTo(classroom)
       .on("value", (snap) => {
         let events = [];
-
         snap.forEach((event) => {
-          events.push({ key: event.key, event: event.val() });
+          const now = KeyPopup.timeNow();
+          let isActive = false;
+          let frequency = {};
+
+          if (isTimeBetween(event.val().begin, now, event.val().end)) {
+            isActive = true;
+            //* GET user frequency
+            const frequencyRef = database.ref("frequency");
+            console.log(event.key);
+            frequencyRef
+              .child(event.key)
+              .child(this.state.uid)
+              .on("value", (snap) => {
+                //Delete the oldest event
+                if (Object.entries(frequency).length !== 0) {
+                  events.shift();
+                }
+
+                frequency = snap.val();
+                console.log(events);
+
+                let data = {
+                  key: event.key,
+                  frequency,
+                  event: event.val(),
+                  isActive,
+                };
+
+                events.push(data);
+
+                this.setState({ events: events.sort(compare) });
+              });
+            console.log("mama");
+          } else {
+            events.push({
+              key: event.key,
+              frequency,
+              event: event.val(),
+              isActive,
+            });
+          }
+          this.setState({ events: events.sort(compare) });
         });
 
         // console.log(events);
-        this.setState({ events, loading: false });
+        this.setState({ loading: false });
       });
-
-    //* GET user frequency
-    // const frequencyRef = database.ref("events");
-    // frequencyRef.
 
     // rootRef.on("value", (snap) => {
     //   let events = [];

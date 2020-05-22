@@ -1,7 +1,6 @@
 import { database } from "../config/firebase";
 
-import querybase from "querybase";
-
+// !DEPRECATED
 export async function getUser(uid) {
   return new Promise((resolve, reject) => {
     let user = null;

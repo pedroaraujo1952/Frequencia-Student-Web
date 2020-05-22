@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { database } from "../../config/firebase";
-import formatTime from "../../utils/FormatTime";
+import { formatTime } from "../../utils/FormatTime";
 
 import * as KeyPopup from "../../controllers/KeyPopupController";
 
@@ -23,7 +23,14 @@ export default class Card extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ check: nextProps.check });
+    if (this.props !== nextProps) {
+      this.setState({
+        uid: nextProps.uid,
+        index: nextProps.index,
+        events: nextProps.events,
+        check: nextProps.check,
+      });
+    }
   }
 
   handleCheckin = async (ev) => {
@@ -57,25 +64,25 @@ export default class Card extends Component {
   };
 
   handleSend = (data) => {
-    var messageRequest = `professores/${
-      this.state.events[this.state.index].teacherUID
-    }/events/${this.state.events[this.state.index].turma}/${
-      this.state.events[this.state.index].eventID
-    }/students/${this.state.uid}`;
+    var messageRequest = `frequency/${
+      this.state.events[this.state.index].key
+    }/${this.state.uid}`;
     database.ref(messageRequest).update(data);
   };
 
   render() {
     let checkin = !this.state.checkin
-      ? this.state.events[this.state.index].checkin
-        ? formatTime(this.state.events[this.state.index].checkin)
+      ? this.state.events[this.state.index].frequency.checkin
+        ? formatTime(this.state.events[this.state.index].frequency.checkin)
         : ""
       : formatTime(this.state.checkin);
     let checkout = !this.state.checkout
-      ? this.state.events[this.state.index].checkout
-        ? formatTime(this.state.events[this.state.index].checkout)
+      ? this.state.events[this.state.index].frequency.checkout
+        ? formatTime(this.state.events[this.state.index].frequency.checkout)
         : ""
       : formatTime(this.state.checkout);
+
+    let active = this.state.events[this.state.index].isActive;
 
     return (
       <div className="card">
@@ -130,7 +137,7 @@ export default class Card extends Component {
         <div className="buttonGroup">
           <button
             onClick={this.handleCheckin}
-            disabled={checkin || !this.state.check ? true : false}
+            disabled={checkin || !active ? true : false}
           >
             CHECK IN
           </button>

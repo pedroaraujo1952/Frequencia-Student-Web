@@ -1,8 +1,8 @@
 import { timeNow } from "../controllers/KeyPopupController";
 
 export default function compare(a, b) {
-  let beginA = a.begin;
-  let beginB = b.begin;
+  let beginA = a.event.begin;
+  let beginB = b.event.begin;
 
   beginA = beginA.split("h");
   beginB = beginB.split("h");
