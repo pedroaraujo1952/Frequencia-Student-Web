@@ -1,4 +1,5 @@
 import { fire } from "../config/firebase";
+// import * as firebase from "firebase";
 
 import * as User from "./UserController";
 
@@ -44,11 +45,13 @@ export async function login(email, password) {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
+        // console.log(user.user.uid);
         const rootRef = fire.database().ref("students");
         rootRef
           .child(user.user.uid)
           .once("value", (snap) => {
             const userJSON = snap.val();
+            // console.log(userJSON);
             localStorage.setItem("user", JSON.stringify(userJSON));
           })
           .then(() => {
@@ -59,6 +62,11 @@ export async function login(email, password) {
         const ERROR = new Error(error);
         reject(ERROR.getError);
       });
+  }).catch((error) => {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(errorCode, errorMessage);
   });
 }
 
@@ -73,7 +81,7 @@ export async function reauth(token) {
 
 export async function forgotPassword(email) {
   const message = `Email enviado com sucesso`;
-  console.log(email);
+  // console.log(email);
 
   return new Promise((resolve, reject) => {
     fire

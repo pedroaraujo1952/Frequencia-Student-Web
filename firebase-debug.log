@@ -1,0 +1,55 @@
+[debug] [2020-05-23T00:50:00.337Z] ----------------------------------------------------------------------
+[debug] [2020-05-23T00:50:00.339Z] Command:       C:\Users\pedro\scoop\apps\nodejs\current\node.exe C:\Users\pedro\scoop\apps\nodejs\current\bin\node_modules\firebase-tools\lib\bin\firebase.js deploy --debug
+[debug] [2020-05-23T00:50:00.339Z] CLI Version:   8.4.0
+[debug] [2020-05-23T00:50:00.339Z] Platform:      win32
+[debug] [2020-05-23T00:50:00.339Z] Node Version:  v12.4.0
+[debug] [2020-05-23T00:50:00.341Z] Time:          Fri May 22 2020 20:50:00 GMT-0400 (GMT-04:00)
+[debug] [2020-05-23T00:50:00.341Z] ----------------------------------------------------------------------
+[debug] [2020-05-23T00:50:00.341Z] 
+[debug] [2020-05-23T00:50:00.350Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-05-23T00:50:00.353Z] > authorizing via signed-in user
+[debug] [2020-05-23T00:50:00.354Z] [iam] checking project frequencia-dev for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-05-23T00:50:00.364Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/frequencia-dev:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-05-23T00:50:01.432Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 23 May 2020 00:50:01 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=727","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-05-23T00:50:01.436Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/frequencia-dev  
+ 
+[debug] [2020-05-23T00:50:02.818Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 23 May 2020 00:50:02 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Deploying to 'frequencia-dev'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2020-05-23T00:50:02.824Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/frequencia-dev/versions  
+ {"config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2020-05-23T00:50:04.727Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 23 May 2020 00:50:04 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting[frequencia-dev]: beginning deploy... 
+[info] i  hosting[frequencia-dev]: found 19 files in build 
+[debug] [2020-05-23T00:50:04.753Z] [hosting] hash cache [YnVpbGQ] stored for 19 files
+[debug] [2020-05-23T00:50:04.755Z] [hosting][hash queue][FINAL] {"max":2,"min":0,"avg":0,"active":0,"complete":19,"success":19,"errored":0,"retried":0,"total":19,"elapsed":6}
+[debug] [2020-05-23T00:50:04.757Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/frequencia-dev/versions/308f1bd1c2923ce4:populateFiles  
+ <request body omitted>
+[debug] [2020-05-23T00:50:06.290Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 23 May 2020 00:50:06 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-05-23T00:50:06.294Z] [hosting][populate queue][FINAL] {"max":1541,"min":1541,"avg":1541,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":1542}
+[debug] [2020-05-23T00:50:06.300Z] [hosting] uploads queued: 1
+[debug] [2020-05-23T00:50:06.695Z] [uploadQueue] Retrying task 076eb44e60e4ea1892b50ae95fe9f85c1b2a07ad16d52187655b963b134fd047
+[info] i  hosting: uploading new files [0/1] (0%) 
+[debug] [2020-05-23T00:50:07.496Z] [uploadQueue] Retrying task 076eb44e60e4ea1892b50ae95fe9f85c1b2a07ad16d52187655b963b134fd047
+[info] i  hosting: uploading new files [0/1] (0%) 
+[debug] [2020-05-23T00:50:09.097Z] [uploadQueue] Retrying task 076eb44e60e4ea1892b50ae95fe9f85c1b2a07ad16d52187655b963b134fd047
+[info] i  hosting: uploading new files [0/1] (0%) 
+[debug] [2020-05-23T00:50:12.298Z] [uploadQueue] Retrying task 076eb44e60e4ea1892b50ae95fe9f85c1b2a07ad16d52187655b963b134fd047
+[info] i  hosting: uploading new files [0/1] (0%) 
+[info] i  hosting: uploading new files [0/1] (0%) 
+[info] i  hosting: uploading new files [0/1] (0%) 
+[debug] [2020-05-23T00:50:18.700Z] [uploadQueue] Retrying task 076eb44e60e4ea1892b50ae95fe9f85c1b2a07ad16d52187655b963b134fd047
+[debug] [2020-05-23T00:50:18.702Z] FirebaseError: Task 076eb44e60e4ea1892b50ae95fe9f85c1b2a07ad16d52187655b963b134fd047 failed: retries exhausted after 6 attempts
+[debug] [2020-05-23T00:50:18.709Z] [hosting][upload queue][FINAL] {"max":0,"min":9999999999,"avg":0,"active":0,"complete":1,"success":0,"errored":1,"retried":5,"total":1,"elapsed":12416}
+[debug] [2020-05-23T00:50:19.118Z] TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received type undefined
+    at validateString (internal/validators.js:107:11)
+    at Object.resolve (path.js:136:9)
+    at Uploader._zipStream (C:\Users\pedro\scoop\persist\nodejs\bin\node_modules\firebase-tools\lib\deploy\hosting\uploader.js:206:41)
+    at C:\Users\pedro\scoop\persist\nodejs\bin\node_modules\firebase-tools\lib\deploy\hosting\uploader.js:186:22
+    at new Promise (<anonymous>)
+    at C:\Users\pedro\scoop\persist\nodejs\bin\node_modules\firebase-tools\lib\deploy\hosting\uploader.js:185:20
+[error] 
+[error] Error: Task 076eb44e60e4ea1892b50ae95fe9f85c1b2a07ad16d52187655b963b134fd047 failed: retries exhausted after 6 attempts

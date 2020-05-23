@@ -15,11 +15,11 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1"
+    "react-scripts": "^3.4.0"
   },
   "scripts": {
     "start": "env-cmd -f ./.env react-scripts start",
-    "build": "env-cmd -f ./.env react-scripts build",
+    "build": "env-cmd -f ./.env.development react-scripts build",
     "test": "env-cmd -f ./.env.development react-scripts start",
     "eject": "react-scripts eject"
   },

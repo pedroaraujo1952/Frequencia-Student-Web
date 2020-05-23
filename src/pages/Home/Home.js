@@ -2,9 +2,9 @@ import React, { Component } from "react";
 
 import { fire, database } from "../../config/firebase";
 
-import * as FormatDate from "../../utils/FormatDate";
+// import * as FormatDate from "../../utils/FormatDate";
 
-import * as User from "../../controllers/UserController";
+// import * as User from "../../controllers/UserController";
 import * as KeyPopup from "../../controllers/KeyPopupController";
 
 import Card from "../../components/Card/Card";
@@ -19,6 +19,7 @@ import CustomSnackbar from "../../components/Snackbar/Snackbar";
 import compare from "../../utils/SortEvents";
 
 import { isTimeBetween } from "../../utils/FormatTime";
+import { Redirect } from "react-router-dom";
 
 export default class Home extends Component {
   constructor() {
@@ -38,87 +39,86 @@ export default class Home extends Component {
       popup_key_input: "",
 
       toast: false,
+      redirect: false,
     };
   }
+
+  async componentWillMount() {}
 
   async componentDidMount() {
     this.setState({ loading: true });
 
-    if (!(await fire.auth().currentUser)) {
-      //GET UID when user reload the page
-      const uid = localStorage.getItem("uid");
-      this.setState({ uid });
-    } else {
-      //GET UID in create account or right after login
-      const uid = await fire.auth().currentUser.uid;
-      this.setState({ uid });
-    }
+    fire.auth().onAuthStateChanged((user) => {
+      if (user) {
+        const userData = localStorage.getItem("user");
+        this.setState({ uid: user.uid, user: JSON.parse(userData) });
 
-    //GET user JSON in localStorage
-    const user = localStorage.getItem("user");
-    this.setState({ user: JSON.parse(user) });
-    const { classroom } = this.state.user;
+        const { classroom } = this.state.user;
 
-    //GET the actual date of the user machine
-    const today = new Date().toLocaleDateString().replace(/\//g, "-"); // /\//g -> Regex to find all "/" int date string
-    // console.log(today);
+        /* GET the actual date of the user machine
+          (/\//g) -> Regex to find all "/" int date string*/
+        const today = new Date().toLocaleDateString().replace(/\//g, "-");
 
-    //* GET Events
-    const eventRef = database.ref("events");
-    eventRef
-      .child(today)
-      .orderByChild("classroom")
-      .equalTo(classroom)
-      .on("value", (snap) => {
-        let events = [];
-        snap.forEach((event) => {
-          const now = KeyPopup.timeNow();
-          let isActive = false;
-          let frequency = {};
+        //* GET Events
+        const eventRef = database.ref("events");
+        eventRef
+          .child(today)
+          .orderByChild("classroom")
+          .equalTo(classroom)
+          .on("value", (snap) => {
+            let events = [];
+            snap.forEach((event) => {
+              const now = KeyPopup.timeNow();
+              let isActive = false;
+              let frequency = {};
 
-          if (isTimeBetween(event.val().begin, now, event.val().end)) {
-            isActive = true;
-            //* GET user frequency
-            const frequencyRef = database.ref("frequency");
-            console.log(event.key);
-            frequencyRef
-              .child(event.key)
-              .child(this.state.uid)
-              .on("value", (snap) => {
-                //Delete the oldest event
-                if (Object.entries(frequency).length !== 0) {
-                  events.shift();
-                }
+              if (isTimeBetween(event.val().begin, now, event.val().end)) {
+                isActive = true;
+                //* GET user frequency
+                const frequencyRef = database.ref("frequency");
+                console.log(event.key);
+                frequencyRef
+                  .child(event.key)
+                  .child(this.state.uid)
+                  .on("value", (snap) => {
+                    //Delete the oldest event
+                    if (Object.entries(frequency).length !== 0) {
+                      events.shift();
+                    }
 
-                frequency = snap.val();
-                console.log(events);
+                    frequency = snap.val();
+                    console.log(events);
 
-                let data = {
+                    let data = {
+                      key: event.key,
+                      frequency,
+                      event: event.val(),
+                      isActive,
+                    };
+
+                    events.push(data);
+
+                    this.setState({ events: events.sort(compare) });
+                  });
+                console.log("mama");
+              } else {
+                events.push({
                   key: event.key,
                   frequency,
                   event: event.val(),
                   isActive,
-                };
-
-                events.push(data);
-
-                this.setState({ events: events.sort(compare) });
-              });
-            console.log("mama");
-          } else {
-            events.push({
-              key: event.key,
-              frequency,
-              event: event.val(),
-              isActive,
+                });
+              }
+              this.setState({ events: events.sort(compare) });
             });
-          }
-          this.setState({ events: events.sort(compare) });
-        });
 
-        // console.log(events);
-        this.setState({ loading: false });
-      });
+            // console.log(events);
+            this.setState({ loading: false });
+          });
+      } else {
+        this.setState({ redirect: true });
+      }
+    });
 
     // rootRef.on("value", (snap) => {
     //   let events = [];
@@ -273,6 +273,8 @@ export default class Home extends Component {
   };
 
   render() {
+    if (this.state.redirect) return <Redirect to="/signin" />;
+
     return (
       <div className="home">
         <Backdrop loading={this.state.loading} />
