@@ -114,13 +114,13 @@ export function popupText(event) {
 
 export function compareKeys(event, key_input, key_number) {
   if (key_number === "1") {
-    if (event.keys.key1.key.toLowerCase() === key_input.toLowerCase())
+    if (event.event.keys.key1.key.toLowerCase() === key_input.toLowerCase())
       return true;
   } else if (key_number === "2") {
-    if (event.keys.key2.key.toLowerCase() === key_input.toLowerCase())
+    if (event.event.keys.key2.key.toLowerCase() === key_input.toLowerCase())
       return true;
   } else if (key_number === "3") {
-    if (event.keys.key3.key.toLowerCase() === key_input.toLowerCase())
+    if (event.event.keys.key3.key.toLowerCase() === key_input.toLowerCase())
       return true;
   }
   return false;
@@ -142,8 +142,9 @@ export function createMessageRequest(event, student_uid, key_number) {
       key3: "ok",
     };
   }
+  // console.log(event, student_uid);
 
-  var messageRequest = `professores/${event.teacherUID}/events/${event.turma}/${event.eventID}/students/${student_uid}/keys`;
+  var messageRequest = `frequency/${event.key}/${student_uid}/keys`;
 
   return [messageRequest, data];
 }

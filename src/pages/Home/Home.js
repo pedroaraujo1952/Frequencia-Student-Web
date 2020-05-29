@@ -7,7 +7,7 @@ import * as KeyPopup from "../../controllers/KeyPopupController";
 import Card from "../../components/Card/Card";
 import Backdrop from "../../components/Backdrop/Backdrop";
 import Header from "../../components/Header/Header";
-import Dialog from "../../components/KeyDialog/Dialog";
+import Dialog from "../../components/KeyDialog/KeyDialog";
 
 import HomeImg from "../../assets/home.jpg";
 
@@ -37,10 +37,9 @@ export default class Home extends Component {
 
       toast: false,
       redirect: false,
+      interval: null,
     };
   }
-
-  async componentWillMount() {}
 
   async componentDidMount() {
     this.setState({ loading: true });
@@ -48,13 +47,16 @@ export default class Home extends Component {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
         const userData = localStorage.getItem("user");
+
         this.setState({ uid: user.uid, user: JSON.parse(userData) });
 
         const { classroom } = this.state.user;
 
-        /* GET the actual date of the user machine
-          (/\//g) -> Regex to find all "/" int date string*/
-        const today = new Date().toLocaleDateString().replace(/\//g, "-");
+        //* GET the actual date of the user machine
+        const auxiliar_date = new Date().toLocaleDateString().split("/");
+        auxiliar_date[2] = auxiliar_date[2].substring(0, 2);
+
+        const today = auxiliar_date.join("-")
 
         //* GET Events
         const eventRef = database.ref("events");
@@ -73,18 +75,26 @@ export default class Home extends Component {
                 isActive = true;
                 //* GET user frequency
                 const frequencyRef = database.ref("frequency");
-                console.log(event.key);
+                // console.log(event.key);
                 frequencyRef
                   .child(event.key)
                   .child(this.state.uid)
                   .on("value", (snap) => {
+                    var { interval } = this.state;
+
+                    if (interval) {
+                      clearInterval(interval);
+                      interval = null;
+                      this.setState({ interval });
+                    }
+
                     //Delete the oldest event
                     if (Object.entries(frequency).length !== 0) {
                       events.shift();
                     }
 
                     frequency = snap.val();
-                    console.log(events);
+                    // console.log(events);
 
                     let data = {
                       key: event.key,
@@ -96,6 +106,38 @@ export default class Home extends Component {
                     events.push(data);
 
                     this.setState({ events: events.sort(compare) });
+                    
+                    localStorage.setItem("key_is_done", "false");
+
+                    interval = setInterval(() => {
+                      this.state.events.forEach((event) => {
+                        // console.log(KeyPopup.timeNow(), localStorage.getItem("key_is_done"))
+                        var key_number = "", time_now = KeyPopup.timeNow();
+
+                        if (event.event.keys.key1.time === time_now) key_number = "1";
+                        else if (event.event.keys.key2.time === time_now) key_number = "2";
+                        else if (event.event.keys.key3.time === time_now) key_number = "3";
+
+                        if (key_number !== "") {
+                          if (localStorage.getItem("key_is_done") === "false") {
+                            this.setState({ 
+                              popup: true,
+                              popup_event: event,
+                              popup_event_key: key_number
+                            });
+                          }
+                        } else {
+                          localStorage.setItem("key_is_done", "false");
+                          this.setState({ 
+                            popup: false,
+                            popup_event: null,
+                            popup_event_key: ""
+                          });
+                        }
+                      });
+                    }, 1000);
+
+                    this.setState({ interval });
                   });
               } else {
                 events.push({
@@ -120,6 +162,8 @@ export default class Home extends Component {
   handleClickKey = (ev) => {
     ev.preventDefault();
 
+    console.log(this.state.popup_key_input)
+
     var response = KeyPopup.compareKeys(
       this.state.popup_event,
       this.state.popup_key_input,
@@ -135,7 +179,7 @@ export default class Home extends Component {
 
       database.ref(messageRequest).update(data);
 
-      localStorage.setItem("key_is_done", "false_");
+      localStorage.setItem("key_is_done", "true");
 
       this.setState({
         popup: false,

@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
 import Home from "../pages/Home/Home";
-import Error404 from "../errors/Error404/404";
+import Error404 from "../errors/Error404/Error404";
 import About from "../pages/About/About";
 import PrivateRoute from "./privateRoutes";
 
