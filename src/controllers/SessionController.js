@@ -1,5 +1,4 @@
 import { fire } from "../config/firebase";
-// import * as firebase from "firebase";
 
 import * as User from "./UserController";
 

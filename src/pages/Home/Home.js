@@ -2,9 +2,6 @@ import React, { Component } from "react";
 
 import { fire, database } from "../../config/firebase";
 
-// import * as FormatDate from "../../utils/FormatDate";
-
-// import * as User from "../../controllers/UserController";
 import * as KeyPopup from "../../controllers/KeyPopupController";
 
 import Card from "../../components/Card/Card";
@@ -100,7 +97,6 @@ export default class Home extends Component {
 
                     this.setState({ events: events.sort(compare) });
                   });
-                console.log("mama");
               } else {
                 events.push({
                   key: event.key,
@@ -119,97 +115,6 @@ export default class Home extends Component {
         this.setState({ redirect: true });
       }
     });
-
-    // rootRef.on("value", (snap) => {
-    //   let events = [];
-
-    //   if (snap) {
-    //     snap.forEach((data) => {
-    //       const teacher = data;
-    //       const teacherEvents = teacher.child("events").child(turma);
-
-    //       if (teacherEvents.val()) {
-    //         const fullDate = FormatDate.formatDate();
-
-    //         teacherEvents.forEach((event) => {
-    //           if (
-    //             event.key !== "evento0" &&
-    //             event.child("date").val() === fullDate
-    //           ) {
-    //             let checkin = event
-    //                 .child("students")
-    //                 .child(this.state.uid)
-    //                 .child("checkin")
-    //                 .val(),
-    //               checkout = event
-    //                 .child("students")
-    //                 .child(this.state.uid)
-    //                 .child("checkout")
-    //                 .val(),
-    //               teacherUID = data.key;
-
-    //             const eventData = {
-    //               ...event.val(),
-    //               eventID: event.key,
-    //               teacherUID,
-    //               turma,
-    //               checkin,
-    //               checkout,
-    //             };
-
-    //             events.push(eventData);
-    //           }
-    //         });
-    //       }
-    //       this.setState({ events: events.sort(compare), loading: false });
-    //     });
-    //   }
-    // });
-
-    //Key validation
-    // localStorage.setItem("key_is_done", "false");
-    // setInterval(() => {
-    //   var [event, check_order, is_check] = KeyPopup.nextEvent(
-    //     this.state.events
-    //   );
-    //   this.setState({ check_order });
-    //   if (event !== null) {
-    //     if (KeyPopup.areKeysInEvent(event)) {
-    //       var [
-    //         popup_response,
-    //         event_response,
-    //         event_key,
-    // ] = KeyPopup.compareTime(event, is_check);
-
-    //       if (event_key !== this.state.popup_event_key)
-    //         localStorage.setItem("key_is_done", "true");
-
-    //       if (
-    //         !popup_response &&
-    //         localStorage.getItem("key_is_done") === "false"
-    //       ) {
-    //         localStorage.setItem("key_is_done", "true");
-    //         this.setState({
-    //           popup: popup_response,
-    //           popup_event: event_response,
-    //           popup_event_key: event_key,
-    //         });
-    //       }
-
-    //       if (
-    //         popup_response &&
-    //         localStorage.getItem("key_is_done") === "true"
-    //       ) {
-    //         localStorage.setItem("key_is_done", "false");
-    //         this.setState({
-    //           popup: popup_response,
-    //           popup_event: event_response,
-    //           popup_event_key: event_key,
-    //         });
-    //       }
-    //     }
-    //   }
-    // }, 1000);
   }
 
   handleClickKey = (ev) => {
