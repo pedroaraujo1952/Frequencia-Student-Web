@@ -18,6 +18,9 @@ import compare from "../../utils/SortEvents";
 import { isTimeBetween } from "../../utils/FormatTime";
 import { Redirect } from "react-router-dom";
 
+// import homeWorker from './HomeWorker';
+// import WebWorker from './HomeWorkerSetup';
+
 export default class Home extends Component {
   constructor() {
     super();
@@ -37,6 +40,7 @@ export default class Home extends Component {
 
       toast: false,
       redirect: false,
+      // workers: {},
     };
   }
 
@@ -79,14 +83,6 @@ export default class Home extends Component {
                   .child(event.key)
                   .child(this.state.uid)
                   .on("value", (snap) => {
-                    var { interval } = this.state;
-
-                    if (interval) {
-                      clearInterval(interval);
-                      interval = null;
-                      this.setState({ interval });
-                    }
-
                     //Delete the oldest event
                     if (Object.entries(frequency).length !== 0) {
                       events.shift();
@@ -102,9 +98,32 @@ export default class Home extends Component {
                       isActive,
                     };
 
+                    /*if (window.Worker) {
+                      if (this.state.events.length > 0 && !(data.key in this.state.workers)) {
+                        var { workers } = this.state;
+
+                        workers[data.key] = new WebWorker(homeWorker);
+                        
+                        workers[data.key].postMessage(data);
+          
+                        workers[data.key].addEventListener('message', e => {
+                            this.setState({ 
+                              popup: e.data[0],
+                              popup_event: e.data[1],
+                              popup_event_key: e.data[2],  
+                            });
+                        }, false);
+
+                        this.setState({ workers });
+                      }
+                    } else {
+                      console.log('Your browser doesn\'t support web workers.');
+                    }*/
+                    
                     events.push(data);
 
                     this.setState({ events: events.sort(compare) });
+
                   });
               } else {
                 events.push({
@@ -143,10 +162,11 @@ export default class Home extends Component {
         this.state.uid,
         this.state.popup_event_key
       );
+      
+      // this.state.workers[this.state.popup_event.key]
+        // .postMessage(["key_is_recently_done", this.state.popup_event_key]);
 
       database.ref(messageRequest).update(data);
-
-      localStorage.setItem("key_is_done", "true");
 
       this.setState({
         popup: false,

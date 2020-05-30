@@ -142,9 +142,8 @@ export function createMessageRequest(event, student_uid, key_number) {
       key3: "ok",
     };
   }
-  // console.log(event, student_uid);
 
-  var messageRequest = `frequency/${event.key}/${student_uid}/keys`;
+  var messageRequest = `frequency/${event.event.classroom}/${event.key}/${student_uid}/keys`;
 
   return [messageRequest, data];
 }
