@@ -64,7 +64,7 @@ export default class Card extends Component {
   };
 
   handleSend = (data) => {
-    var messageRequest = `frequency/${
+    var messageRequest = `frequency/${this.props.classroom}/${
       this.state.events[this.state.index].key
     }/${this.state.uid}`;
     database.ref(messageRequest).update(data);

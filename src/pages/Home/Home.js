@@ -37,7 +37,6 @@ export default class Home extends Component {
 
       toast: false,
       redirect: false,
-      interval: null,
     };
   }
 
@@ -62,8 +61,7 @@ export default class Home extends Component {
         const eventRef = database.ref("events");
         eventRef
           .child(today)
-          .orderByChild("classroom")
-          .equalTo(classroom)
+          .child(classroom)
           .on("value", (snap) => {
             let events = [];
             snap.forEach((event) => {
@@ -77,6 +75,7 @@ export default class Home extends Component {
                 const frequencyRef = database.ref("frequency");
                 // console.log(event.key);
                 frequencyRef
+                  .child(classroom)
                   .child(event.key)
                   .child(this.state.uid)
                   .on("value", (snap) => {
@@ -106,38 +105,6 @@ export default class Home extends Component {
                     events.push(data);
 
                     this.setState({ events: events.sort(compare) });
-                    
-                    localStorage.setItem("key_is_done", "false");
-
-                    interval = setInterval(() => {
-                      this.state.events.forEach((event) => {
-                        // console.log(KeyPopup.timeNow(), localStorage.getItem("key_is_done"))
-                        var key_number = "", time_now = KeyPopup.timeNow();
-
-                        if (event.event.keys.key1.time === time_now) key_number = "1";
-                        else if (event.event.keys.key2.time === time_now) key_number = "2";
-                        else if (event.event.keys.key3.time === time_now) key_number = "3";
-
-                        if (key_number !== "") {
-                          if (localStorage.getItem("key_is_done") === "false") {
-                            this.setState({ 
-                              popup: true,
-                              popup_event: event,
-                              popup_event_key: key_number
-                            });
-                          }
-                        } else {
-                          localStorage.setItem("key_is_done", "false");
-                          this.setState({ 
-                            popup: false,
-                            popup_event: null,
-                            popup_event_key: ""
-                          });
-                        }
-                      });
-                    }, 1000);
-
-                    this.setState({ interval });
                   });
               } else {
                 events.push({
@@ -162,7 +129,7 @@ export default class Home extends Component {
   handleClickKey = (ev) => {
     ev.preventDefault();
 
-    console.log(this.state.popup_key_input)
+    // console.log(this.state.popup_key_input)
 
     var response = KeyPopup.compareKeys(
       this.state.popup_event,
@@ -255,6 +222,7 @@ export default class Home extends Component {
                 events={this.state.events}
                 uid={this.state.uid}
                 check={this.state.check_order[index]}
+                classroom={this.state.user.classroom}
               />
             ))
           ) : (
