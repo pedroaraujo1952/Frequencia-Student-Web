@@ -23,31 +23,44 @@ export default () => {
         return hour;
     }
 
+    function compareBetweenEvents(event1, event2) {
+        var hourEvent1 = parseInt(event1.substring(0, 2));
+        var minutesEvent1 = parseInt(event1.substring(3, 5));
+      
+        var hourEvent2 = parseInt(event2.substring(0, 2));
+        var minutesEvent2 = parseInt(event2.substring(3, 5));
+      
+        return (hourEvent2 - hourEvent1) * 60 + (minutesEvent2 - minutesEvent1);
+    }
+
     let key_is_done = false, key_is_recently_done = "";
 
     self.addEventListener('message', function(e) {
         if (e.data[0] !== "key_is_recently_done") {
-            this.setInterval(() => {
-                // console.log(e.data)
+            var interval = this.setInterval(() => {
                 var key_number = "", time_now = timeNow();
-                // console.log(event)
+                
+                if (compareBetweenEvents(time_now, e.data.event.begin) < 0 &&
+                    compareBetweenEvents(time_now, e.data.event.end) > 0) {
+                    if (e.data.event.keys.key1.time === time_now) key_number = "1";
+                    else if (e.data.event.keys.key2.time === time_now) key_number = "2";
+                    else if (e.data.event.keys.key3.time === time_now) key_number = "3";
 
-                if (e.data.event.keys.key1.time === time_now) key_number = "1";
-                else if (e.data.event.keys.key2.time === time_now) key_number = "2";
-                else if (e.data.event.keys.key3.time === time_now) key_number = "3";
-                console.log(key_number, time_now)
+                    let workerResult = [false, null, ""];
 
-                let workerResult = [false, null, ""];
+                    if (key_number !== "") {
+                        if (key_number !== key_is_recently_done) {
+                            key_is_recently_done = "";
+                            key_is_done = false;
+                        }
+                        if (!key_is_done) workerResult = [true, e.data, key_number];
+                    } else key_is_done = false;
 
-                if (key_number !== "") {
-                    if (key_number !== key_is_recently_done) {
-                        key_is_recently_done = "";
-                        key_is_done = false;
+                    self.postMessage(workerResult);
+                } else if (compareBetweenEvents(time_now, e.data.event.begin) < 0 &&
+                    compareBetweenEvents(time_now, e.data.event.end) < 0) {
+                        clearInterval(interval);
                     }
-                    if (!key_is_done) workerResult = [true, e.data, key_number];
-                } else key_is_done = false;
-
-                self.postMessage(workerResult);
             }, 1000);
         }
     }, false);

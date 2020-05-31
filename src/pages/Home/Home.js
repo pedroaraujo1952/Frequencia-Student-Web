@@ -18,8 +18,8 @@ import compare from "../../utils/SortEvents";
 import { isTimeBetween } from "../../utils/FormatTime";
 import { Redirect } from "react-router-dom";
 
-// import homeWorker from './HomeWorker';
-// import WebWorker from './HomeWorkerSetup';
+import homeWorker from './HomeWorker';
+import WebWorker from './HomeWorkerSetup';
 
 export default class Home extends Component {
   constructor() {
@@ -40,7 +40,7 @@ export default class Home extends Component {
 
       toast: false,
       redirect: false,
-      // workers: {},
+      workers: {},
     };
   }
 
@@ -98,8 +98,8 @@ export default class Home extends Component {
                       isActive,
                     };
 
-                    /*if (window.Worker) {
-                      if (this.state.events.length > 0 && !(data.key in this.state.workers)) {
+                    if (window.Worker) {
+                      if (!(data.key in this.state.workers)) {
                         var { workers } = this.state;
 
                         workers[data.key] = new WebWorker(homeWorker);
@@ -118,7 +118,7 @@ export default class Home extends Component {
                       }
                     } else {
                       console.log('Your browser doesn\'t support web workers.');
-                    }*/
+                    }
                     
                     events.push(data);
 
@@ -148,8 +148,6 @@ export default class Home extends Component {
   handleClickKey = (ev) => {
     ev.preventDefault();
 
-    // console.log(this.state.popup_key_input)
-
     var response = KeyPopup.compareKeys(
       this.state.popup_event,
       this.state.popup_key_input,
@@ -163,8 +161,8 @@ export default class Home extends Component {
         this.state.popup_event_key
       );
       
-      // this.state.workers[this.state.popup_event.key]
-        // .postMessage(["key_is_recently_done", this.state.popup_event_key]);
+      this.state.workers[this.state.popup_event.key]
+        .postMessage(["key_is_recently_done", this.state.popup_event_key]);
 
       database.ref(messageRequest).update(data);
 
