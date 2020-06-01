@@ -1,6 +1,7 @@
 import { fire } from "../config/firebase";
 
 import * as User from "./UserController";
+import classrooms from "../models/Classroom";
 
 import Error from "../errors/user.error";
 
@@ -46,16 +47,21 @@ export async function login(email, password) {
       .then((user) => {
         // console.log(user.user.uid);
         const rootRef = fire.database().ref("students");
-        rootRef
+        classrooms.forEach(async (classroom) => {
+          await rootRef
+          .child(classroom.name)  
           .child(user.user.uid)
           .once("value", (snap) => {
             const userJSON = snap.val();
             // console.log(userJSON);
-            localStorage.setItem("user", JSON.stringify(userJSON));
+            if (userJSON) {
+              localStorage.setItem("user", JSON.stringify(userJSON));
+            }
           })
           .then(() => {
             resolve(user.user.uid);
           });
+        });
       })
       .catch((error) => {
         const ERROR = new Error(error);

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import * as Session from "../../controllers/SessionController";
 
@@ -158,9 +158,9 @@ export default class Login extends Component {
 
               <div className="alternative" style={{ margin: 0 }}>
                 <p onClick={this.handleDialog}>Esqueceu a senha?</p>
-                <NavLink to="/signup" className="alternative">
+                {/*<NavLink to="/signup" className="alternative">
                   <p>Cadastrar</p>
-                </NavLink>
+                </NavLink>*/}
               </div>
             </div>
 
